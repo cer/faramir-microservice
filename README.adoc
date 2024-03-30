@@ -1,0 +1,56 @@
+= An LLM powered microservice for parsing phone numbers
+
+ I was recently reminded of a tweet from 3 years that described how some websites make difficult to enter information, such as a phone number:
+
+image::./mytweet.png[link="https://twitter.com/crichardson/status/1404551676409749506"]
+
+The obvious solution is to use today's golden hammer: an LLM.
+
+== About this project
+
+This project is a simple Python-based microservice that uses OpenAI to validate and parse phone numbers.
+
+Running the service:
+
+```shell
+export OPENAI_API_KEY=<your-openai-api-key>
+
+$ uvicorn --reload service_api:app
+```
+
+Validating and parsing phone numbers:
+
+```shell
+$ http POST localhost:8000/parse ph
+oneNumber=5105551212
+HTTP/1.1 200 OK
+content-length: 27
+content-type: application/json
+date: Fri, 29 Mar 2024 22:25:58 GMT
+server: uvicorn
+{
+    "result": "(510) 555-1212"
+}
+```
+
+and
+
+```shell
+$ http POST localhost:8000/parse phoneNumber=510555121
+HTTP/1.1 400 Bad Request
+content-type: application/json
+date: Fri, 29 Mar 2024 22:26:26 GMT
+server: uvicorn
+```
+
+== How it works
+
+The service uses https://www.langchain.com[Langchain], which is a popular Python framework, to invoke OpenAI's LLM to parse the phone number. 
+
+The code invokes the LLM with a prompt that instructs the LLM to validate the phone and, if it's correct, return it in a standard format.
+
+== Parody warning
+
+The timing of this project is not a coincidence. It's a parody of the current state of the industry where it seems like every problem is solved by an LLM.
+
+Having said that, this project is a simple example of how to use an LLM to solve what could be a real-world problem.
