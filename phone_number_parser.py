@@ -12,8 +12,7 @@ Otherwise print FAIL.
 Print only the phone number or FAIL. 
 No other words                    
 
-phone number:
-{input}
+phone number: '{input}'
  """)
      # "token_usage" : result.response_metadata['token_usage']}
     return result.content
