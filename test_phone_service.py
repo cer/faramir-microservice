@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from service_api import app
+from faramir import app
 
 client = TestClient(app)
 
