@@ -1,6 +1,6 @@
 = Faramir: An LLM powered microservice for validating and formatting phone numbers
 
-I was recently reminded of a tweet from 3 years that described how some websites make difficult to enter information, such as a phone number:
+I was recently reminded of a tweet from 3 years that described how some websites make it difficult to enter information, such as a phone number:
 
 image::./mytweet.png[link="https://twitter.com/crichardson/status/1404551676409749506"]
 
