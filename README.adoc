@@ -8,21 +8,39 @@ The obvious solution is to use today's golden hammer: an LLM, or more specifical
 
 == About Faramir
 
-Faramir is a simple Python-based microservice that uses OpenAI to validate and format phone numbers.
+Faramir is a simple (micro)service that uses OpenAI to validate and format phone numbers.
 You could, for example, use Faramir to make it easier for users to enter phone numbers in a web form.
 
-Running the service:
+== Technology stacks
+
+There are the following versions of the service:
+
+* `python-langchain` - Python, FastAPI, and Langchain
+* `spring-boot-spring-ai` - Spring Boot and https://docs.spring.io/spring-ai/reference/index.html[Spring AI]
+
+== Running the service
+
+Python:
 
 ```shell
 export OPENAI_API_KEY=<your-openai-api-key>
 
-$ uvicorn --reload faramir:app
+$ uvicorn --reload faramir:app --port 8080
 ```
 
-Validating and parsing phone numbers:
+Spring Boot:
 
 ```shell
-$ http POST localhost:8000/parse phoneNumber=5105551212
+export OPENAI_API_KEY=<your-openai-api-key>
+
+$ ./gradlew bootRun
+```
+
+
+== Validating and parsing phone numbers
+
+```shell
+$ http POST localhost:8080/parse phoneNumber=5105551212
 HTTP/1.1 200 OK
 content-length: 27
 content-type: application/json
@@ -36,18 +54,22 @@ server: uvicorn
 and
 
 ```shell
-$ http POST localhost:8000/parse phoneNumber=510555121
+$ http POST localhost:8080/parse phoneNumber=510555121
 HTTP/1.1 400 Bad Request
 content-type: application/json
 date: Fri, 29 Mar 2024 22:26:26 GMT
 server: uvicorn
 ```
 
-== How it works
+== How it works - Python
 
-The service uses https://www.langchain.com[Langchain], which is a popular Python framework, to invoke OpenAI's LLM to parse the phone number. 
+The Python version of the service uses https://www.langchain.com[Langchain], which is a popular Python framework, to invoke OpenAI's LLM to parse the phone number. 
 
 The code invokes the LLM with a prompt that instructs the LLM to validate the phone and, if it's correct, return it in a standard format.
+
+== How it works - Spring Boot
+
+The Spring Boot version of the service uses https://docs.spring.io/spring-ai/reference/index.html[Spring AI], which is a new project that provides abstractions for developing AI-powered services in Spring Boot.
 
 == Why Faramir?
 
